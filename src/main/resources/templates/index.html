@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Scrapping</title>
+</head>
+<body>
+
+    <form action="saveNo">
+        1건 등록
+        <input type="text" name="no">
+        <input type="submit">
+    </form>
+    <form action="savesNo">
+        다건 등록
+        <input type="text" name="from">
+        <input type="text" name="to">
+        <input type="submit">
+    </form>
+
+    <div>
+        <label>검색조건</label>
+        <form method="get" action="/">
+            <input name="filter" type="radio" value="최종 선정되었습니다.">최종 선정
+            <br/>
+            <input name="filter"  type="radio" value="해당기업은 평가 결과를 찾을 수 없습니다.">찾을 수 없음
+            <br/>
+            <input name="filter"  type="radio" value="최종 선정에서 탈락되었습니다.">탈락
+            <br/>
+            <input type="submit" value="검색">
+        </form>
+    </div>
+
+    <table>
+        <tr>
+            <td>사업자번호</td>
+            <td>결과</td>
+            <td>재시도</td>
+        </tr>
+        <tr th:each="item : ${list}">
+            <td th:text="${item.key}"></td>
+            <td th:text="${item.value}"></td>
+            <td>
+                <form action="saveNo">
+                    <input type="hidden" name="no" th:value="${item.key}">
+                    <input type="submit" value="재시도">
+                </form>
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>
